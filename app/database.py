@@ -3,16 +3,23 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
 import pymysql
+from dotenv import load_dotenv, find_dotenv
+from pathlib import Path 
+
+
+password1 = os.getenv("KEY")
+user1 = os.getenv("USER")
+host1 = os.getenv("HOST")
 # MySQL connection URL without specifying the database name
-SQLALCHEMY_DATABASE_URL = f"mysql://root:penis12345678@localhost:3306/"
+SQLALCHEMY_DATABASE_URL = f"mysql://{user1}:{password1}@{host1 }:3306/"
 
 database_name = 'Kanye'
 
 # Create a connection to the MySQL server without specifying a database
 connection = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='penis12345678'
+    host= host1,
+    user= user1,
+    password= password1
 )
 
 # Create a cursor to execute SQL queries
