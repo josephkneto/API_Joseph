@@ -15,30 +15,34 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/members/", response_model=schemas.Member)
+@app.post("/quotes/", response_model=schemas.Member)
 def create_member(member: schemas.MemberCreate, db: Session = Depends(get_db)):
     return crud.create_member(db=db, member=member)
 
-@app.get("/members/", response_model=list[schemas.Member])
+@app.get("/")
+def hello_world():
+    return "Hello World"
+
+@app.get("/quotes/", response_model=list[schemas.Member])
 def read_members(db: Session = Depends(get_db)):
     members = crud.get_members(db)
     return members
 
-@app.get("/members/{member_id}", response_model=schemas.Member)
+@app.get("/quotes/{member_id}", response_model=schemas.Member)
 def read_member(member_id: int, db: Session = Depends(get_db)):
     db_member = crud.get_member(db, member_id=member_id)
     if db_member is None:
         raise HTTPException(status_code=404, detail="Member not found")
     return db_member
 
-@app.put("/members/{member_id}", response_model=schemas.Member)
+@app.put("/quotes/{member_id}", response_model=schemas.Member)
 def update_member(member_id: int, member: schemas.MemberUpdate, db: Session = Depends(get_db)):
     db_member = crud.get_member(db, member_id=member_id)
     if db_member is None:
         raise HTTPException(status_code=404, detail="Member not found")
     return crud.update_member(db=db, member=member, member_id=member_id)
 
-@app.delete("/members/{member_id}", response_model=schemas.DeletedResponse)
+@app.delete("/quotes/{member_id}", response_model=schemas.DeletedResponse)
 def delete_member(member_id: int, db: Session = Depends(get_db)):
     deleted = crud.delete_member(db=db, member_id=member_id)
     if not deleted:
