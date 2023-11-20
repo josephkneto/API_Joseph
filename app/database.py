@@ -11,7 +11,7 @@ password1 = os.getenv("KEY")
 user1 = os.getenv("USER")
 host1 = os.getenv("HOST")
 # MySQL connection URL without specifying the database name
-SQLALCHEMY_DATABASE_URL = f"mysql://{user1}:{password1}@{host1 }:3306/"
+SQLALCHEMY_DATABASE_URL = f"mysql://{user1}:{password1}@{host1}/"
 
 database_name = 'Kanye'
 
