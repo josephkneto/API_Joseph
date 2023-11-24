@@ -1,3 +1,4 @@
+from typing import List  # Add this line for the List type
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from . import models, schemas, crud
@@ -23,7 +24,7 @@ def create_member(member: schemas.MemberCreate, db: Session = Depends(get_db)):
 def hello_world():
     return "Hello World"
 
-@app.get("/quotes/", response_model=list[schemas.Member])
+@app.get("/quotes/", response_model=List[schemas.Member])  # Fix the response_model here
 def read_members(db: Session = Depends(get_db)):
     members = crud.get_members(db)
     return members
